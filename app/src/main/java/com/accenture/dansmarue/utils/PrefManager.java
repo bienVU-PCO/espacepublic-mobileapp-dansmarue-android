@@ -8,7 +8,8 @@ import androidx.annotation.NonNull;
 import com.accenture.dansmarue.mvp.models.Category;
 import com.accenture.dansmarue.mvp.models.FavoriteAddress;
 import com.accenture.dansmarue.mvp.models.equipementsMunicipaux.TypeEquipement;
-import com.google.firebase.iid.FirebaseInstanceId;
+
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -272,7 +273,7 @@ public class PrefManager {
      * @return actual firebase user token for the user
      */
     public String getUserToken() {
-        return FirebaseInstanceId.getInstance().getToken();
+        return FirebaseMessaging.getInstance().getToken().getResult();
     }
 
 
