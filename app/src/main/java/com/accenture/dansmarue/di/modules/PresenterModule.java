@@ -12,6 +12,7 @@ import com.accenture.dansmarue.mvp.presenters.CategoryPresenter;
 import com.accenture.dansmarue.mvp.presenters.LoginPresenter;
 import com.accenture.dansmarue.mvp.presenters.MapParisEquipementPresenter;
 import com.accenture.dansmarue.mvp.presenters.MapParisPresenter;
+import com.accenture.dansmarue.mvp.presenters.PrefProfilePresenter;
 import com.accenture.dansmarue.mvp.presenters.ProfilePresenter;
 import com.accenture.dansmarue.mvp.presenters.SliderPresenter;
 import com.accenture.dansmarue.mvp.presenters.SplashScreenPresenter;
@@ -27,6 +28,7 @@ import com.accenture.dansmarue.mvp.views.CategoryView;
 import com.accenture.dansmarue.mvp.views.LoginView;
 import com.accenture.dansmarue.mvp.views.MapParisEquipementView;
 import com.accenture.dansmarue.mvp.views.MapParisView;
+import com.accenture.dansmarue.mvp.views.PrefProfileView;
 import com.accenture.dansmarue.mvp.views.ProfileView;
 import com.accenture.dansmarue.mvp.views.SliderView;
 import com.accenture.dansmarue.mvp.views.SplashScreenView;
@@ -119,6 +121,12 @@ public class PresenterModule {
     @ActivityScope
     LoginPresenter provideLoginPresenter(final PrefManager prefManager, final AuthentParisAccountService authenService, final SiraApiService siraService) {
         return new LoginPresenter((LoginView) this.view, prefManager, authenService, siraService);
+    }
+
+    @Provides
+    @ActivityScope
+    PrefProfilePresenter providePrefProfilePresenter(final PrefManager prefManager, final SiraApiService siraService) {
+        return new PrefProfilePresenter((PrefProfileView) this.view, siraService, prefManager);
     }
 
     @Provides

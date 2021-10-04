@@ -126,10 +126,12 @@
     <!--Menu preferences-->
     <string name="pref_activity_title">Paramètres</string>
     <string-array name="pref_items_menu">
+        <item>Profil</item>
         <item>Préférences</item>
         <item>Conditions générales d\'utilisation</item>
         <item>A propos</item>
     </string-array>
+    <string name="button_co">SE CONNECTER</string>
     <string name="button_deco">SE DECONNECTER</string>
 
     <!--Menu preferences > profil-->
@@ -138,6 +140,7 @@
     <string name="pref_profil_lastname">Nom</string>
     <string name="pref_profil_firstname">Prénom</string>
     <string name="pref_profil_email">Mail de contact</string>
+    <string name="pref_profil_enter_email">Renseigner ci-dessous votre mail de contact : </string>
     <string name="pref_profil_btn_access_full_profile">Voir mon profil complet</string>
     <string name="url_full_profile" translatable="false"></string>
 

@@ -1,31 +1,52 @@
 package com.accenture.dansmarue.ui.activities;
 
-import android.content.Intent;
-import android.net.Uri;
+
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+
+import android.text.TextUtils;
+import android.util.Patterns;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import com.accenture.dansmarue.R;
+
+import com.accenture.dansmarue.di.components.DaggerPresenterComponent;
+import com.accenture.dansmarue.di.modules.PresenterModule;
+import com.accenture.dansmarue.mvp.presenters.PrefProfilePresenter;
+import com.accenture.dansmarue.mvp.views.PrefProfileView;
+
 import com.accenture.dansmarue.utils.PrefManager;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
-import butterknife.OnClick;
 
 
-public class PrefProfilActivity extends BaseActivity {
+
+public class PrefProfilActivity extends BaseActivity implements PrefProfileView {
 
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
 
-    @BindView(R.id.profil_lastname)
-    protected TextView lastName;
-
-    @BindView(R.id.profil_firstname)
-    protected TextView firstName;
-
+    @BindView(R.id.profil_email_label)
+    protected TextView labelEmail;
     @BindView(R.id.profil_email)
     protected TextView email;
+    @BindView(R.id.profil_enter_my_mail)
+    protected TextView labelInputEmail;
+    @BindView(R.id.input_my_mail)
+    protected EditText inputMyEmail;
+
+    @BindView(R.id.button_connect)
+    protected Button buttonConnect;
+
+    @Inject
+    protected PrefProfilePresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,26 +62,53 @@ public class PrefProfilActivity extends BaseActivity {
         }
 
         PrefManager prefManager = new PrefManager(getApplicationContext());
-        email.setText(prefManager.getEmail());
+        if (prefManager.getEmail() != null && prefManager.getEmail().trim().length() > 0) {
+            email.setText(prefManager.getEmail());
+            labelEmail.setVisibility(View.VISIBLE);
+            email.setVisibility(View.VISIBLE);
+            labelInputEmail.setVisibility(View.INVISIBLE);
+            inputMyEmail.setVisibility(View.INVISIBLE);
+            buttonConnect.setVisibility(View.INVISIBLE);
+        } else {
+            labelEmail.setVisibility(View.INVISIBLE);
+            email.setVisibility(View.INVISIBLE);
+            labelInputEmail.setVisibility(View.VISIBLE);
+            inputMyEmail.setVisibility(View.VISIBLE);
+            buttonConnect.setVisibility(View.VISIBLE);
+        }
 
-        if (null != prefManager.getLastName()) lastName.setText(prefManager.getLastName());
+        buttonConnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String emailEnter = inputMyEmail.getText().toString();
+                if (!TextUtils.isEmpty(emailEnter) && Patterns.EMAIL_ADDRESS.matcher(emailEnter).matches()) {
+                    prefManager.setConnected(emailEnter,null);
+                    presenter.isEmailAgent(emailEnter);
+                } else {
+                    Toast.makeText(getApplicationContext(),"L'adresse mail n'est pas valide.",Toast.LENGTH_LONG).show();
+                }
 
-        if (null != prefManager.getFirstName()) firstName.setText(prefManager.getFirstName());
-
+            }
+        });
 
     }
 
-    @OnClick(R.id.profil_deco)
-    public void decoDMR() {
-        Uri webpage = Uri.parse(getString(R.string.url_full_profile));
-        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
+    @Override
+    protected void resolveDaggerDependency() {
+        DaggerPresenterComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .presenterModule(new PresenterModule(this))
+                .build().inject(this);
+
     }
 
     @Override
     protected int getContentView() {
         return R.layout.pref_profil_activity_layout;
+    }
+
+    @Override
+    public void isEmailAgentCallback() {
+        finish();
     }
 }

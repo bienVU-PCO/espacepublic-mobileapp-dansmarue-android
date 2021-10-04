@@ -147,7 +147,7 @@ public class AddAnomalyPresenter extends BasePresenter<AddAnomalyView> implement
      */
     public boolean setEmail(final String email) {
         if (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            prefManager.setEmail(email);
+            //prefManager.setConnected(email,null);
             getRequest().setEmail(email);
             return true;
         }

@@ -21,6 +21,7 @@ import com.accenture.dansmarue.services.models.IncidentResolvedRequest;
 import com.accenture.dansmarue.services.models.ProcessWorkflowRequest;
 import com.accenture.dansmarue.services.models.SaveIncidentRequest;
 import com.accenture.dansmarue.services.models.SaveIncidentResponse;
+import com.accenture.dansmarue.services.models.SiraRequest;
 import com.accenture.dansmarue.services.models.SiraSimpleResponse;
 import com.accenture.dansmarue.services.models.UnfollowRequest;
 
@@ -203,5 +204,15 @@ public interface SiraApiService {
      */
     @GET("signalement/getAnomalieByNumber/{number}")
     Single<GetIncidentsByPositionResponse> getAnomalieByNumber(@Path("number") String incidentNumber);
+
+    /**
+     * Resolve an incident
+     *
+     * @param request request containig the incident id to resolve
+     * @return Response containing the status code
+     */
+    @FormUrlEncoded
+    @POST("signalement/api/")
+    Single<SiraSimpleResponse> isEmailAgent(@Field("jsonStream") SiraRequest request);
 
 }

@@ -24,7 +24,7 @@
             android:layout_weight="1"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <ImageView
@@ -55,6 +55,26 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/anomaly_draft"
+            android:textAlignment="center"
+            android:textColor="@color/framboise"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/menu_anos_unresolved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/anomaly_wip"
+            android:textAlignment="center"
+            android:textColor="@color/framboise"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/menu_anos_resolved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/anomaly_ok"
             android:textAlignment="center"
             android:textColor="@color/framboise"
             android:textSize="16sp" />

@@ -8,15 +8,15 @@ public class GetIncidentsByUserRequest extends SiraRequest {
 
     private static final String SERVICE_NAME = "getIncidentsByUser";
 
-    private String guid;
+    private String email;
     private String filterIncidentStatus;
 
-    public String getGuid() {
-        return guid;
+    public String getEmail() {
+        return email;
     }
 
-    public void setGuid(String guid) {
-        this.guid = guid;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setFilterIncidentStatus(String filterState) {

@@ -56,10 +56,16 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
     private SectionedRecyclerViewAdapter adapter;
 
     private ProfileSection draftSection;
+    private ProfileSection resolvedSection;
+    private ProfileSection unresolvedSection;
 
 
     @BindView(R.id.menu_anos_drafts)
     protected TextView menuDraft;
+    @BindView(R.id.menu_anos_unresolved)
+    protected TextView menuUnresolved;
+    @BindView(R.id.menu_anos_resolved)
+    protected TextView menuResolved;
 
     @BindView(R.id.user_mail_txt)
     protected TextView userMailTxt;
@@ -112,6 +118,8 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
         adapter = new SectionedRecyclerViewAdapter();
 
         draftSection = new ProfileSection(getContext(), getString(R.string.section_drafts));
+        unresolvedSection = new ProfileSection(getContext(), getString(R.string.section_unresolved));
+        resolvedSection = new ProfileSection(getContext(), getString(R.string.section_resolved));
 
 
         adapter.addSection(Constants.TAG_SECTION_DRAFTS, draftSection);
@@ -187,7 +195,7 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
                 try {
                     ProfileSection section = (ProfileSection) adapter.getSectionForPosition(position);
                     Log.d(TAG, "getSwipeDirs: " + adapter.getPositionInSection(position));
-                    if (draftSection == section && adapter.getPositionInSection(position) > -1) {
+                    if (draftSection == section || unresolvedSection == section || resolvedSection == section  && adapter.getPositionInSection(position) > -1) {
                         return super.getSwipeDirs(recyclerView, viewHolder);
                     }
                 } catch (IndexOutOfBoundsException e) {
@@ -214,6 +222,12 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
                         section.deleteItem(posInSection);
                         adapter.notifyItemRemoved(position);
                     }
+
+                    if (unresolvedSection == section || resolvedSection == section) {
+                        presenter.unFollowDraft(draft);
+                        section.deleteItem(posInSection);
+                        adapter.notifyItemRemoved(position);
+                    }
                 }
 
             }
@@ -226,6 +240,8 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
 
     @Override
     public void loadIncidents(final String filterState) {
+        resolvedSection.setState(Section.State.LOADING);
+        unresolvedSection.setState(Section.State.LOADING);
         adapter.notifyDataSetChanged();
         presenter.loadIncidentsByUser(filterState);
     }
@@ -250,17 +266,23 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
 
     @Override
     public void showSolvedIncidents(List<Incident> incidents) {
+        resolvedSection.setData(incidents);
+        resolvedSection.setState(Section.State.LOADED);
         adapter.notifyDataSetChanged();
     }
 
 
     @Override
     public void showUnsolvedIncidents(List<Incident> incidents) {
+        unresolvedSection.setData(incidents);
+        unresolvedSection.setState(Section.State.LOADED);
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void showFailedLoading() {
+        unresolvedSection.setState(Section.State.FAILED);
+        resolvedSection.setState(Section.State.FAILED);
         adapter.notifyDataSetChanged();
     }
 
@@ -270,10 +292,14 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
         adapter.removeAllSections();
 
         adapter.addSection(Constants.TAG_SECTION_DRAFTS, draftSection);
+        adapter.addSection(Constants.TAG_SECTION_UNRESOLVED, unresolvedSection);
+        adapter.addSection(Constants.TAG_SECTION_RESOLVED, resolvedSection);
 
         adapter.notifyDataSetChanged();
 
         menuDraft.setTextColor(getResources().getColor(R.color.framboise));
+        menuUnresolved.setTextColor(getResources().getColor(R.color.framboise));
+        menuResolved.setTextColor(getResources().getColor(R.color.framboise));
 
     }
 
@@ -285,6 +311,8 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
         adapter.notifyDataSetChanged();
 
         menuDraft.setTextColor(getResources().getColor(R.color.framboise));
+        menuUnresolved.setTextColor(getResources().getColor(R.color.grey_tranparent));
+        menuResolved.setTextColor(getResources().getColor(R.color.grey_tranparent));
 
     }
 
@@ -292,9 +320,12 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
     public void showMenuUnresolved() {
         adapter.removeSection(Constants.TAG_SECTION_DRAFTS);
         adapter.removeSection(Constants.TAG_SECTION_RESOLVED);
+        adapter.addSection(Constants.TAG_SECTION_UNRESOLVED, unresolvedSection);
         adapter.notifyDataSetChanged();
 
         menuDraft.setTextColor(getResources().getColor(R.color.grey_tranparent));
+        menuUnresolved.setTextColor(getResources().getColor(R.color.framboise));
+        menuResolved.setTextColor(getResources().getColor(R.color.grey_tranparent));
 
     }
 
@@ -302,13 +333,17 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
     public void showMenuResolved() {
         adapter.removeSection(Constants.TAG_SECTION_DRAFTS);
         adapter.removeSection(Constants.TAG_SECTION_UNRESOLVED);
+        adapter.addSection(Constants.TAG_SECTION_RESOLVED, resolvedSection);
+
         adapter.notifyDataSetChanged();
 
         menuDraft.setTextColor(getResources().getColor(R.color.grey_tranparent));
+        menuUnresolved.setTextColor(getResources().getColor(R.color.grey_tranparent));
+        menuResolved.setTextColor(getResources().getColor(R.color.framboise));
 
     }
 
-    @OnClick({R.id.menu_anos_drafts})
+    @OnClick({R.id.menu_anos_drafts, R.id.menu_anos_unresolved, R.id.menu_anos_resolved})
     public void onMenuClicked(final View view) {
 
         presenter.onMenuClicked(view.getId());

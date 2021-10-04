@@ -54,12 +54,18 @@ public class SiraSimpleResponse extends SiraResponse {
 
         private String status;
 
+        private boolean isAgent;
+
         public String getStatus() {
             return status;
         }
 
         public void setStatus(String status) {
             this.status = status;
+        }
+
+        public boolean isAgent() {
+            return isAgent;
         }
     }
 

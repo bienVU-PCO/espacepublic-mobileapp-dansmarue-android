@@ -147,4 +147,6 @@
     <string name="not_in_paris">invalid address</string>
     <string name="pref_cgu_activity_title" translatable="false">Terms of use</string>
     <string name="type">Type</string>
+    <string name="pref_profil_enter_email">Enter your contact email below :</string>
+    <string name="button_co">Sign in</string>
 </resources>

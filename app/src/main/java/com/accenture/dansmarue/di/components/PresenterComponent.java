@@ -9,6 +9,7 @@ import com.accenture.dansmarue.ui.activities.AnomalyEquipementDetailsActivity;
 import com.accenture.dansmarue.ui.activities.CategoryActivity;
 import com.accenture.dansmarue.ui.activities.CategoryEquipementActivity;
 import com.accenture.dansmarue.ui.activities.LoginActivity;
+import com.accenture.dansmarue.ui.activities.PrefProfilActivity;
 import com.accenture.dansmarue.ui.activities.SliderActivity;
 import com.accenture.dansmarue.ui.activities.SplashScreenActivity;
 import com.accenture.dansmarue.ui.activities.WelcomeMapActivity;
@@ -105,4 +106,6 @@ public interface PresenterComponent {
      * @param fragment view to inject dependecies to
      */
     void inject(ProfileFragment fragment);
+
+    void inject(PrefProfilActivity prefProfilActivity);
 }

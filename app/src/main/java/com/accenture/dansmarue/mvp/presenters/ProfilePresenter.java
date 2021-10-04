@@ -101,7 +101,7 @@ public class ProfilePresenter extends BasePresenter<ProfileView> implements Sing
             this.filterState= filterState;
             if (prefManager.getTypesEquipement() != null) {
                 final GetIncidentsByUserRequest request = new GetIncidentsByUserRequest();
-                request.setGuid(prefManager.getGuid());
+                request.setEmail(prefManager.getEmail());
                 request.setFilterIncidentStatus(this.filterState);
                 apiServiceEquipement.getIncidentsByUser(request)
                         .subscribeOn(Schedulers.io())
@@ -122,7 +122,7 @@ public class ProfilePresenter extends BasePresenter<ProfileView> implements Sing
      * Init user name.
      */
     public void initUser() {
-        view.updateUserName("", "");
+        view.updateUserName(prefManager.getEmail(), "");
     }
 
     public void oldPositionMenu() {
@@ -135,6 +135,14 @@ public class ProfilePresenter extends BasePresenter<ProfileView> implements Sing
         switch (idMenu) {
             case R.id.menu_anos_drafts:
                 view.showMenuDrafts();
+                break;
+            case R.id.menu_anos_unresolved:
+                view.loadIncidents(Incident.STATE_OPEN);
+                view.showMenuUnresolved();
+                break;
+            case R.id.menu_anos_resolved:
+                view.loadIncidents(Incident.STATE_RESOLVED);
+                view.showMenuResolved();
                 break;
             default:
                 view.showMenuDrafts();
@@ -220,7 +228,7 @@ public class ProfilePresenter extends BasePresenter<ProfileView> implements Sing
     private void callWsAnosOutdoor(List<Incident> resolvedIncidents, List<Incident> unresolvedIncidents) {
 
         final GetIncidentsByUserRequest request = new GetIncidentsByUserRequest();
-        request.setGuid(prefManager.getGuid());
+        request.setEmail(prefManager.getEmail());
         request.setFilterIncidentStatus(filterState);
         service.getIncidentsByUser(request)
                 .subscribeOn(Schedulers.io())

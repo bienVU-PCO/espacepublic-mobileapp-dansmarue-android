@@ -62,8 +62,12 @@ public class PrefActivity extends BaseActivity {
 
                 switch (position) {
 
-                    //  préfs
+                    //  profil
                     case 0:
+                        startActivity(new Intent(PrefActivity.this, PrefProfilActivity.class));
+                        break;
+                    //  préfs
+                    case 1:
                         Intent intent = new Intent();
                         intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                         Uri uri = Uri.fromParts("package", getPackageName(), null);
@@ -73,12 +77,12 @@ public class PrefActivity extends BaseActivity {
                         break;
 
                     //  CGU
-                    case 1:
+                    case 2:
                         startActivity(new Intent(PrefActivity.this, PrefCGUActivity.class));
                         break;
 
                     //  About
-                    case 2:
+                    case 3:
                         startActivity(new Intent(PrefActivity.this, PrefAboutActivity.class));
                         break;
 
@@ -109,10 +113,12 @@ public class PrefActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         if (prefManager.isConnected()) {
+            btnDeco.setVisibility(View.VISIBLE);
             btnDeco.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     prefManager.disconnect();
+                    prefManager.setEmail(null);
                     recreate();
                 }
             });
