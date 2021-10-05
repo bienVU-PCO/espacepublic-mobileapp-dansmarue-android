@@ -45,7 +45,7 @@ public final class CategoryHelper {
         CAT_ICONS.put("12159", R.drawable.ic_type_svg_obj_lost_1000);
         CAT_ICONS.put("12310", R.drawable.ic_type_svg_chantier_2000);
         CAT_ICONS.put("12158", R.drawable.ic_type_svg_garbage_3000);
-        CAT_ICONS.put("12160", R.drawable.ic_type_svg_garbage_3000);
+        CAT_ICONS.put("12160", R.drawable.ic_type_svg_garbage_3100);
         CAT_ICONS.put("12161", R.drawable.ic_type_svg_banksy_3600);
         //CAT_ICONS.put("4000", R.drawable.ic_type_svg_voirie_4000);
         //CAT_ICONS.put("5000", R.drawable.ic_type_svg_voirie_4000);
@@ -63,7 +63,7 @@ public final class CategoryHelper {
         MAP_ICONS.put("12159", R.drawable.ic_ano_1000);
         MAP_ICONS.put("12310", R.drawable.ic_ano_2000);
         MAP_ICONS.put("12158", R.drawable.ic_ano_3000);
-        MAP_ICONS.put("12160", R.drawable.ic_ano_3000);
+        MAP_ICONS.put("12160", R.drawable.ic_ano_3100);
         MAP_ICONS.put("12161", R.drawable.ic_ano_3600);
         //MAP_ICONS.put("4000", R.drawable.ic_ano_4000);
         //MAP_ICONS.put("5000", R.drawable.ic_ano_4000);
@@ -81,7 +81,7 @@ public final class CategoryHelper {
         MAP_ICONS_RESOLVED.put("12159", R.drawable.ic_ano_done_1000);
         MAP_ICONS_RESOLVED.put("12310", R.drawable.ic_ano_done_2000);
         MAP_ICONS_RESOLVED.put("12158", R.drawable.ic_ano_done_3000);
-        MAP_ICONS_RESOLVED.put("12160", R.drawable.ic_ano_done_3000);
+        MAP_ICONS_RESOLVED.put("12160", R.drawable.ic_ano_done_3100);
         MAP_ICONS_RESOLVED.put("12161", R.drawable.ic_ano_done_3600);
         //MAP_ICONS_RESOLVED.put("4000", R.drawable.ic_ano_done_4000);
         //MAP_ICONS_RESOLVED.put("5000", R.drawable.ic_ano_done_4000);
@@ -99,7 +99,7 @@ public final class CategoryHelper {
         MAP_GENERIC_PICTURES.put("12159", R.drawable.ic_type_svg_obj_lost_1000_grey);
         MAP_GENERIC_PICTURES.put("12310", R.drawable.ic_type_svg_chantier_2000_grey);
         MAP_GENERIC_PICTURES.put("12158", R.drawable.ic_type_svg_garbage_3000_grey);
-        MAP_GENERIC_PICTURES.put("12160", R.drawable.ic_type_svg_garbage_3000_grey);
+        MAP_GENERIC_PICTURES.put("12160", R.drawable.ic_type_svg_garbage_3100_grey);
         MAP_GENERIC_PICTURES.put("12161", R.drawable.ic_type_svg_banksy_3600_grey);
         //MAP_GENERIC_PICTURES.put("4000", R.drawable.ic_type_svg_voirie_4000_grey);
         //MAP_GENERIC_PICTURES.put("5000", R.drawable.ic_type_svg_voirie_4000_grey);

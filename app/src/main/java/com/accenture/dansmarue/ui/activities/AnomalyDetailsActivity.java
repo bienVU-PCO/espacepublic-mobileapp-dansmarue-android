@@ -461,29 +461,12 @@ public class AnomalyDetailsActivity extends BaseAnomalyActivity implements Anoma
                 txtOverPicture.setText(R.string.anomaly_in_progress);
                 txtOverPicture.setVisibility(View.VISIBLE);
 
-                /**if (incident.isFromRamen()) {
-                    fabDetailsAno.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.grey_icon)));
-                } else if (incident.isIncidentFollowedByUser()) {
-                    fabDetailsAno.setImageResource(R.drawable.ic_followed);
-                    fabDetailsAnoFollowed = true;
-                } else {
-                    fabDetailsAno.setImageResource(R.drawable.ic_follow);
-                    fabDetailsAnoFollowed = false;
-                }**/
-
-                //fabDetailsAno.setClickable(!incident.isFromRamen());
-                 if (!incident.isFromRamen() && incident.isResolvable() && !isLayoutAgent ) {
-                    photoServiceFaitLayout.setVisibility(View.VISIBLE);
-                    resolveBtn.setVisibility(View.VISIBLE);
-                 } else if(!incident.isFromRamen() && incident.isResolvable() && isLayoutAgent){
+                 if(isLayoutAgent) {
                      serviceFaitLayout.setVisibility(View.VISIBLE);
                  } else {
-                    resolveBtn.setVisibility(View.GONE);
-                    photoServiceFaitLayout.setVisibility(View.GONE);
-                    if (isLayoutAgent)  {
-                        serviceFaitLayout.setVisibility(View.GONE);
-                    }
-                }
+                     resolveBtn.setVisibility(View.GONE);
+                     photoServiceFaitLayout.setVisibility(View.GONE);
+                 }
 
             }
 
@@ -700,7 +683,7 @@ public class AnomalyDetailsActivity extends BaseAnomalyActivity implements Anoma
             if (!incident.isAnonyme() ) {
                 messageServiceFait.setVisibility(View.VISIBLE);
                 if(isMessageServiceFaitSelect) {
-                    resolveBtn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.pink));
+                    resolveBtn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.framboise));
                     resolveBtn.setEnabled(true);
                 } else {
                     resolveBtn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.grey_icon));
@@ -708,7 +691,7 @@ public class AnomalyDetailsActivity extends BaseAnomalyActivity implements Anoma
                 }
             }  else if (incident.isAnonyme()) {
                 //anonymous report
-                resolveBtn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.pink));
+                resolveBtn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.framboise));
                 resolveBtn.setEnabled(true);
             }
             resolveBtn.setVisibility(View.VISIBLE);
@@ -906,7 +889,7 @@ public class AnomalyDetailsActivity extends BaseAnomalyActivity implements Anoma
             chooseMessageServiceFait.setText(messageServiceFaitSelect.getMessage());
             chooseMessageServiceFait.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.pink));
             chooseMessageServiceFaitImage.setImageResource(R.drawable.ic_check_circle_pink_24px);
-            resolveBtn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.pink));
+            resolveBtn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.framboise));
             resolveBtn.setEnabled(true);
             isMessageServiceFaitSelect = true;
         }

@@ -25,6 +25,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
 
+
+    @Override
+    public void onNewToken(String s) {
+        super.onNewToken(s);
+        Log.e("newToken", s);
+        getSharedPreferences("_", MODE_PRIVATE).edit().putString("fb", s).apply();
+    }
+
+
     /**
      * Called when message is received.
      *
@@ -122,6 +131,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         } else {
             notificationManager.notify(0, notificationBuilder.build());
         }
+    }
+
+    public static String getToken(Context context) {
+        return context.getSharedPreferences("_", MODE_PRIVATE).getString("fb", "empty");
     }
 
 

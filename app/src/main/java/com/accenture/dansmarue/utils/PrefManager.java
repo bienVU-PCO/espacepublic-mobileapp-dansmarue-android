@@ -9,6 +9,7 @@ import com.accenture.dansmarue.mvp.models.Category;
 import com.accenture.dansmarue.mvp.models.FavoriteAddress;
 import com.accenture.dansmarue.mvp.models.equipementsMunicipaux.TypeEquipement;
 
+import com.accenture.dansmarue.services.notifications.MyFirebaseMessagingService;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -273,7 +274,7 @@ public class PrefManager {
      * @return actual firebase user token for the user
      */
     public String getUserToken() {
-        return FirebaseMessaging.getInstance().getToken().getResult();
+        return MyFirebaseMessagingService.getToken(_context);
     }
 
 
