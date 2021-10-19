@@ -887,9 +887,10 @@ public class MapParisFragment extends BaseFragment implements MapParisView, OnMa
                             locationChanged(myCurrentLocationPosition);
                         }
 
-                        if (null != googleMap && null != locationButton)
+                        if (null != googleMap && null != locationButton) {
                             myProperFloatActionButton.setVisibility(View.VISIBLE);
                             findByNumberButton.setVisibility(View.VISIBLE);
+                        }
 
 
                     } else if (networkInfo != null && networkInfo.getDetailedState() == NetworkInfo.DetailedState.DISCONNECTED) {
@@ -899,9 +900,10 @@ public class MapParisFragment extends BaseFragment implements MapParisView, OnMa
                         isNetworkOkReceiver = false;
                         cardview_place_autocomplete_fragment.setVisibility(View.GONE);
                         if (null != googleMap) {
-                            if (null != locationButton && null != googleMap.getMyLocation() && NetworkUtils.isGpsEnable(getContext()) == false)
+                            if (null != locationButton && null != googleMap.getMyLocation() && NetworkUtils.isGpsEnable(getContext()) == false) {
                                 myProperFloatActionButton.setVisibility(View.GONE);
                                 findByNumberButton.setVisibility(View.GONE);
+                            }
                         }
                     }
 
