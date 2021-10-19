@@ -32,7 +32,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@color/pink"
+        android:background="@color/framboise"
         android:text="@string/slider_button_txt"
         android:textAllCaps="false"
         android:textColor="@color/white"

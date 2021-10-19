@@ -1,15 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="slide1_title">BIENVENUE !</string>
-    <string name="slide1_subtitle">bienVU vous permet de participer à l\'amélioration de votre cadre de vie en échangeant des informations avec les services de la ville.</string>
-
+    <string name="slide1_title">bienVU vous souhaite la BIENVENUE !</string>
+    <string name="slide1_subtitle_1"> Cette application a été conçue pour transmettre des anomalies identifiées dans votre rue, votre quartier, vos lieux de passage sur l\'espace public.</string>
+    <string name="slide1_subtitle_2"> En 3 clics, contribuez à l\'amélioration du cadre de vie en partageant des signalements avec nos services.</string>
+    
     <string name="slide2_title">ENVOYEZ LES BONNES INFORMATIONS !</string>
-    <string name="slide2_subtitle_1"> Bien choisir le bon sujet (graffiti, objet abandonné, défaut sur la route, stationnement gênant…) dans la nomenclature</string>
-    <string name="slide2_subtitle_2"> Bien préciser et vérifier l\'adresse exacte de l\'anomalie avec un numéro de rue</string>
-    <string name="slide2_subtitle_3"> Joindre une ou plusieurs photos bien cadrées sur l\'anomalie</string>
-    <string name="slide2_subtitle_4"> Rajouter une description complémentaire utile et courtoise</string>
+    <string name="slide2_subtitle_1"> Choisissez le bon type de signalement (graffiti, objet abandonné, défaut sur la route, éclairage en panne…) dans la nomenclature.</string>
+    <string name="slide2_subtitle_2"> En plus du positionnement sur la carte, vérifiez l\'adresse exacte de l\'anomalie, avec un numéro de rue.</string>
+    <string name="slide2_subtitle_3"> Joignez une ou deux photographies bien cadrées sur l\'anomalie.</string>
+    <string name="slide2_subtitle_4"> Rajoutez une description complémentaire utile et courtoise.</string>
 
-    <string name="slide3_title">RESTEZ EN CONTACT !</string>
-    <string name="slide3_subtitle">	Connectez-vous avec Mon Paris (votre compte personnel parisien sur Paris.fr) pour suivre la prise en charge de votre contribution et accéder aux fonctionnalités complémentaires. Supprimez régulièrement vos anomalies clôturées pour ne pas saturer la mémoire de votre smartphone et ralentir l\'application</string>
+    <string name="slide3_title">SUIVRE et SIMPLIFIER vos SIGNALEMENTS !</string>
+    <string name="slide3_subtitle"> Vous pouvez renseigner votre adresse électronique pour être informé·e du traitement des anomalies signalées ; enregistrer vos adresses favorites pour effectuer des signalements plus rapidement ; vérifier sur la carte si d\'autres signalements ont été effectués à proximité (pour éviter les doublons).</string>
 
     <string name="slider_button_txt">Commencer</string>
 
