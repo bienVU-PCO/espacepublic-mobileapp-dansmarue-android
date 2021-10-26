@@ -150,7 +150,7 @@ public class MapParisFragment extends BaseFragment implements MapParisView, OnMa
      * Restriction Paris
      */
     private LatLngBounds parisBounds = new LatLngBounds(
-            new LatLng(48.896794, 2.308851),
+            new LatLng(48.895637, 2.288851),
             new LatLng(48.986503, 2.413853));
 
     private int permissionCheck;
