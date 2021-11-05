@@ -17,11 +17,11 @@
         app:srcCompat="@drawable/splash_logo_dmr" />
 
 
-    <com.mapbox.mapboxsdk.maps.MapView
+   <!-- <com.mapbox.mapboxsdk.maps.MapView
         android:id="@+id/mapboxView"
         android:layout_width="1dp"
         android:layout_height="1dp"
-        android:visibility="visible" />
+        android:visibility="visible" />-->
 
 
 
