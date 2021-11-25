@@ -369,7 +369,12 @@ public class AddAnomalyActivity extends BaseAnomalyActivity implements AddAnomal
     public void findPlace(View view) {
 
         if (!Places.isInitialized()) {
-            Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
+            try {
+                Bundle metaData = getPackageManager().getApplicationInfo(getApplicationContext().getPackageName(), PackageManager.GET_META_DATA).metaData;
+                Places.initialize(getApplicationContext(), metaData.getString("com.google.android.geo.API_KEY"));
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
         }
 
         Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, Arrays.asList(Place.Field.ADDRESS,Place.Field.LAT_LNG))
