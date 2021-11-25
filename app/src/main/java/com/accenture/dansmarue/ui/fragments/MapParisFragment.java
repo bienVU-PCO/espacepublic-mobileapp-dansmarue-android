@@ -24,6 +24,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.accenture.dansmarue.BuildConfig;
 import com.accenture.dansmarue.ui.activities.SplashScreenActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -269,7 +270,12 @@ public class MapParisFragment extends BaseFragment implements MapParisView, OnMa
     private void initAutoCompleteSearchBar() {
 
         if (!Places.isInitialized()) {
-            Places.initialize(getContext(), getString(R.string.google_maps_key));
+            try {
+                Bundle metaData = getContext().getPackageManager().getApplicationInfo(getContext().getPackageName(), PackageManager.GET_META_DATA).metaData;
+                Places.initialize(getContext(), metaData.getString("com.google.android.geo.API_KEY"));
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
         }
 
         // Create a new Places client instance.

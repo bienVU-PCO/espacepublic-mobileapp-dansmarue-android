@@ -10,6 +10,11 @@ buildscript {
         classpath 'com.android.tools.build:gradle:4.1.3'
     }
 }
+
+plugins {
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
@@ -21,8 +26,8 @@ apply plugin: 'jacoco'
 
 ext.versionMajor = 1
 ext.versionMinor = 1
-ext.versionPatch = 0
-ext.versionCode = 1
+ext.versionPatch = 3
+ext.versionCode = 4
 ext.minimumSdkVersion = 19
 
 android {
@@ -36,7 +41,7 @@ android {
     def releaseNotes = 'git log --pretty=format:"%s" --since "yesterday"'.execute([], project.rootDir).text.trim()
 
     defaultConfig {
-        applicationId "fr.pc.android.bienvu"
+        applicationId "com.plainecommune.bienvu"
         minSdkVersion 19
         // target Android 11
         targetSdkVersion 30
@@ -66,7 +71,7 @@ android {
             buildConfigField "String", "API_URL_EQUIPEMENT", '"http://api-back-office/rest/"'
             buildConfigField "String", "AUTHENT_API_URL", '"https://authen-api/json"'
             buildConfigField "String", "AUTHENT_HEADER", '"mcpAuth"'
-            applicationId "fr.pc.android.bienvu"
+            applicationId "com.plainecommune.bienvu"
             resValue "string", "app_name", "bienVU (Dev)"
             manifestPlaceholders = [
                     appIcon : "@mipmap/ic_launcher",
@@ -80,7 +85,7 @@ android {
             buildConfigField "String", "API_URL_EQUIPEMENT", '"http://api-back-office/rest/"'
             buildConfigField "String", "AUTHENT_API_URL", '"https://authen-api/json"'
             buildConfigField "String", "AUTHENT_HEADER", '"mcpAuth"'
-            applicationId "fr.pc.android.bienvu"
+            applicationId "com.plainecommune.bienvu"
             resValue "string", "app_name", "bienVU (Prec)"
             manifestPlaceholders = [
                     appIcon : "@mipmap/ic_launcher",
@@ -99,7 +104,7 @@ android {
             buildConfigField "String", "API_URL_EQUIPEMENT", '"http://api-back-office/rest/"'
             buildConfigField "String", "AUTHENT_API_URL", '"https://authen-api/json"'
             buildConfigField "String", "AUTHENT_HEADER", '"mcpAuth"'
-            applicationId "fr.pc.android.bienvu"
+            applicationId "com.plainecommune.bienvu"
             resValue "string", "app_name", "bienVU (Rec)"
             manifestPlaceholders = [
                     appIcon : "@mipmap/ic_launcher",
@@ -113,7 +118,7 @@ android {
             buildConfigField "String", "API_URL_EQUIPEMENT", '"http://api-back-office/rest/"'
             buildConfigField "String", "AUTHENT_API_URL", '"https://authen-api/json"'
             buildConfigField "String", "AUTHENT_HEADER", '"mcpAuth"'
-            applicationId "fr.pc.android.bienvu"
+            applicationId "com.plainecommune.bienvu"
             resValue "string", "app_name", "bienVU"
             manifestPlaceholders = [
                     appIcon : "@mipmap/ic_launcher",
@@ -174,7 +179,7 @@ android {
             android.buildTypes.release.signingConfig = null
         }
     } else {
-        println 'AndroidProject.signing property not found. modify your local gradle.properties file as follow -> AndroidProject.signing=C:\\\\dev\\\\VDP\\\\DansMaRue\\\\androidproject.properties'
+        println 'AndroidProject.signing property not found. modify your local gradle.properties file as follow -> AndroidProject.signing=C:\\\\Android\\\\projets\\\\bienVU\\\\properties\\\\androidproject.properties'
         println 'androidproject.properties contains the STORE_PASSWORD, KEY_ALIAS and KEY_PASSWORD properties'
     }
 
@@ -258,7 +263,7 @@ dependencies {
     provided 'javax.annotation:jsr250-api:1.0'
     compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.1.3'
 
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.5.0'
+    //implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.5.0'
 
     // connecthings beacon notification
     //compile "com.connecthings.adtag:android-adtag-detection:3.1.10"
