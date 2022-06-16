@@ -67,7 +67,7 @@
             android:focusable="true"
             android:clickable="true"
             android:visibility="invisible"
-            app:srcCompat="@drawable/ic_question_black_24px" />
+            app:srcCompat="@drawable/ic_loupe_24px" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/my_proper_location_button"
