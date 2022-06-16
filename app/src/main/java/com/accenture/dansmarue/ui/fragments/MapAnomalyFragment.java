@@ -52,7 +52,7 @@ public class MapAnomalyFragment extends Fragment implements OnMapReadyCallback, 
 
         if (isAdded()) {
 
-            googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+            googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
 //        Central Paris > Notre Dame: 48.853152, 2.349891
             LatLng centralParis = new LatLng(48.853152, 2.349891);

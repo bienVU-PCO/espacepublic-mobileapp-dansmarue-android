@@ -240,7 +240,7 @@ public class MapParisFragment extends BaseFragment implements MapParisView, OnMa
      */
     private void initMap(GoogleMap map) {
         googleMap = map;
-        googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         googleMap.setOnMarkerClickListener(this);
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         if (null == myCurrentLocationPosition || validLocation == false) {
