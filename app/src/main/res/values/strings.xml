@@ -264,7 +264,7 @@
     <string name="favoris">Favoris</string>
     <string name="types_favoris">Types favoris</string>
     <string name="about_version_title">Version : </string>
-    <string name="city_name">Aubervilliers,Épinay-sur-Seine,Pierrefitte-sur-Seine,Saint-Denis,Villetaneuse,Stains,L\'Île-Saint-Denis,La Courneuve,Saint-Ouen</string>
+    <string name="city_name">Aubervilliers,Épinay-sur-Seine,Pierrefitte-sur-Seine,Saint-Denis,Villetaneuse,Stains,L\'Île-Saint-Denis,La Courneuve,Saint-Ouen,Saint-Ouen-sur-Seine</string>
     <string name="favorite_address_title">Adresses favorites</string>
     <string name="favorite_address_modifier">Modifier</string>
     <string name="favorite_address_terminer">Terminer</string>

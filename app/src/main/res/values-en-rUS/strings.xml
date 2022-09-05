@@ -100,7 +100,7 @@
     <string name="popup_error_title">Warning</string>
     <string name="popup_msg">A new version of the application is available on the PlayStore. Would you like to install it?</string>
     <string name="popup_no_categories">Due to a network problem, the data needed to create a request could not be retrieved. Thank you to start again later</string>
-    <string name="city_name">Aubervilliers,Épinay-sur-Seine,Pierrefitte-sur-Seine,Saint-Denis,Villetaneuse,Stains,L\'Île-Saint-Denis,La Courneuve,Saint-Ouen</string>
+    <string name="city_name">Aubervilliers,Épinay-sur-Seine,Pierrefitte-sur-Seine,Saint-Denis,Villetaneuse,Stains,L\'Île-Saint-Denis,La Courneuve,Saint-Ouen,Saint-Ouen-sur-Seine</string>
     <string name="add_anomaly_offline_mode">Network unavailable, please try again later</string>
     <string name="add_anomaly_no_location">Please specify your position</string>
     <string name="text_title_requalification">Requalification</string>
