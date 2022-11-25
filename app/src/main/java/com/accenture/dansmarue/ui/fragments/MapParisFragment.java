@@ -1096,7 +1096,9 @@ public class MapParisFragment extends BaseFragment implements MapParisView, OnMa
      *          position of the incident find.
      */
     public void callBackFindByNumber(String errorMessage, boolean dmrOffline, LatLng posIncident) {
-           dialogFindByNumber.dismiss();
+           if (dialogFindByNumber != null) {
+                dialogFindByNumber.dismiss();
+           }
            if (dmrOffline) {
               searchNumberIncident = null;
                AlertDialog.Builder builder = new AlertDialog.Builder( getContext() , R.style.MyDialogTheme);
