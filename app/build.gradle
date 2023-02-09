@@ -31,8 +31,8 @@ ext.versionCode = 7
 ext.minimumSdkVersion = 19
 
 android {
-    // target Android 13
-    compileSdkVersion 33
+    // target Android 12
+    compileSdkVersion 32
     // Build Tools
     buildToolsVersion '29.0.3'
 
@@ -43,8 +43,8 @@ android {
     defaultConfig {
         applicationId "fr.pc.android.bienvu"
         minSdkVersion 19
-        // target Android 13
-        targetSdkVersion 33
+        // target Android 12
+        targetSdkVersion 32
         versionCode generateVersionCode()
         versionName generateVersionName()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
