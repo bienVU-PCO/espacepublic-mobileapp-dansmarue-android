@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -759,8 +760,12 @@ public class AnomalyDetailsActivity extends BaseAnomalyActivity implements Anoma
     @OnClick(R.id.add_anomaly_photo)
     public void takePhotoOrViewGallery() {
         isRequalificationPhoto = false;
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+        String storagePermission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            storagePermission = Manifest.permission.READ_MEDIA_IMAGES;
+        }
+        if (ContextCompat.checkSelfPermission(this, storagePermission) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{storagePermission}, PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
         } else {
             selectImage();
         }
@@ -770,8 +775,12 @@ public class AnomalyDetailsActivity extends BaseAnomalyActivity implements Anoma
     @OnClick(R.id.requalification_photo)
     public void takePhotoOrViewGalleryRequalification() {
         isRequalificationPhoto = true;
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+        String storagePermission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            storagePermission = Manifest.permission.READ_MEDIA_IMAGES;
+        }
+        if (ContextCompat.checkSelfPermission(this, storagePermission) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{storagePermission}, PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
         } else {
             selectImage();
         }
@@ -787,12 +796,12 @@ public class AnomalyDetailsActivity extends BaseAnomalyActivity implements Anoma
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     selectImage();
                 }
-                return;
             }
         }
     }
@@ -800,12 +809,12 @@ public class AnomalyDetailsActivity extends BaseAnomalyActivity implements Anoma
     // A place has been received; use requestCode to track the request.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-
             case TAKE_PICTURE_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
                     rotateResizeAndCompress();
-                    if(isRequalificationPhoto) {
+                    if (isRequalificationPhoto) {
                         showPictureRequalification(mCurrentPhotoPath);
                     } else {
                         showPicture(mCurrentPhotoPath);

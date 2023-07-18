@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.splashscreen.SplashScreen;
 
 
 import com.accenture.dansmarue.BuildConfig;
@@ -44,6 +45,8 @@ public class SplashScreenActivity extends BaseActivity implements SplashScreenVi
     @Inject
     protected SplashScreenPresenter presenter;
 
+    private SplashScreen splashScreen;
+    private Boolean shouldAvoidSplashScreen = false;
 
     @Override
     protected int getContentView() {
@@ -53,6 +56,10 @@ public class SplashScreenActivity extends BaseActivity implements SplashScreenVi
 
     @Override
     protected void resolveDaggerDependency() {
+        if (shouldAvoidSplashScreen)
+            setTheme(R.style.AppTheme);
+        else
+            splashScreen = SplashScreen.installSplashScreen(this);
         DaggerPresenterComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .presenterModule(new PresenterModule(this))
@@ -62,6 +69,10 @@ public class SplashScreenActivity extends BaseActivity implements SplashScreenVi
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (!shouldAvoidSplashScreen) {
+            if (splashScreen != null)
+                splashScreen.setKeepOnScreenCondition(() -> true);
+        }
         super.onCreate(savedInstanceState);
 
         //MapBox Start
