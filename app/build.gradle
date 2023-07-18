@@ -7,7 +7,7 @@ buildscript {
     dependencies {
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.1'
         classpath 'com.facebook.testing.screenshot:plugin:0.10.0'
-        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath 'com.android.tools.build:gradle:7.4.2'
     }
 }
 
@@ -184,9 +184,6 @@ android {
         println 'androidproject.properties contains the STORE_PASSWORD, KEY_ALIAS and KEY_PASSWORD properties'
     }
 
-    lintOptions {
-        abortOnError false
-    }
 
     testOptions {
         unitTests.all {
@@ -194,6 +191,10 @@ android {
                 includeNoLocationClasses = true
             }
         }
+    }
+    namespace 'com.accenture.dansmarue'
+    lint {
+        abortOnError false
     }
 
     compileOptions {
@@ -215,7 +216,7 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.42'
     annotationProcessor "com.google.dagger:dagger-compiler:2.23.2"
 
-    implementation 'com.github.bumptech.glide:glide:3.8.0'
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
 
     //noinspection AndroidLintGradleCompatible
     implementation 'androidx.multidex:multidex:2.0.1'
