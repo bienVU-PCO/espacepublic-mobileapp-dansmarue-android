@@ -51,7 +51,6 @@ android {
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         resValue "string", "PATH_PICTURES", 'Android/data/' + applicationId + '/files/Pictures'
-        manifestPlaceholders = [MAPS_API_KEY: 'AIzaSyCj24XSmogs9303sAZgpBrU93aw6ftWnm8']
     }
 
     // Keep the following configuration in order to target Java 8.
