@@ -1,23 +1,17 @@
 package com.accenture.dansmarue.app;
 
 import android.content.Context;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.Priority;
-import com.bumptech.glide.Registry;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.Options;
 import com.bumptech.glide.load.data.DataFetcher;
+import com.bumptech.glide.load.model.GenericLoaderFactory;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
-import com.bumptech.glide.load.model.MultiModelLoaderFactory;
-import com.bumptech.glide.module.AppGlideModule;
-import com.bumptech.glide.signature.ObjectKey;
+import com.bumptech.glide.module.GlideModule;
 import com.bumptech.glide.util.ContentLengthInputStream;
 
 import java.io.IOException;
@@ -33,30 +27,21 @@ import okhttp3.ResponseBody;
  * Created by PK on 12/06/2017.
  */
 
-public class UnsafeOkHttpGlideModule extends AppGlideModule {
-    
+public class UnsafeOkHttpGlideModule implements GlideModule {
+
+    private static final String TAG = UnsafeOkHttpGlideModule.class.getName();
+
     @Override
     public void applyOptions(Context context, GlideBuilder builder) {
 
     }
 
     @Override
-    public void registerComponents(@NonNull Context context, @NonNull Glide glide, @NonNull Registry registry) {
-        registry.prepend(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory((DansMaRueApplication) context));
+    public void registerComponents(Context context, Glide glide) {
+        glide.register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory((DansMaRueApplication) context));
     }
 
     public static class OkHttpUrlLoader implements ModelLoader<GlideUrl, InputStream> {
-
-        @Nullable
-        @Override
-        public LoadData<InputStream> buildLoadData(@NonNull GlideUrl glideUrl, int width, int height, @NonNull Options options) {
-            return new LoadData<>(new ObjectKey(glideUrl), /*fetcher=*/ new OkHttpStreamFetcher(client, glideUrl));
-        }
-
-        @Override
-        public boolean handles(@NonNull GlideUrl glideUrl) {
-            return glideUrl.toStringUrl().startsWith("data:");
-        }
 
         /**
          * The default factory for {@link OkHttpUrlLoader}s.
@@ -90,9 +75,8 @@ public class UnsafeOkHttpGlideModule extends AppGlideModule {
                 this.client = client;
             }
 
-            @NonNull
             @Override
-            public ModelLoader<GlideUrl, InputStream> build(@NonNull MultiModelLoaderFactory multiModelLoaderFactory) {
+            public ModelLoader<GlideUrl, InputStream> build(Context context, GenericLoaderFactory factories) {
                 return new OkHttpUrlLoader(client);
             }
 
@@ -108,7 +92,13 @@ public class UnsafeOkHttpGlideModule extends AppGlideModule {
             this.client = client;
         }
 
+        @Override
+        public DataFetcher<InputStream> getResourceFetcher(GlideUrl model, int width, int height) {
+            return new OkHttpStreamFetcher(client, model);
+        }
+
         public class OkHttpStreamFetcher implements DataFetcher<InputStream> {
+
             private final OkHttpClient client;
             private final GlideUrl url;
             private InputStream stream;
@@ -120,7 +110,7 @@ public class UnsafeOkHttpGlideModule extends AppGlideModule {
             }
 
             @Override
-            public void loadData(@NonNull Priority priority, @NonNull DataCallback<? super InputStream> callback) {
+            public InputStream loadData(Priority priority) throws Exception {
                 Request.Builder requestBuilder = new Request.Builder()
                         .url(url.toStringUrl());
 
@@ -130,20 +120,16 @@ public class UnsafeOkHttpGlideModule extends AppGlideModule {
                 }
 
                 Request request = requestBuilder.build();
-                try {
-                    Response response = client.newCall(request).execute();
-                    responseBody = response.body();
-                    if (!response.isSuccessful()) {
-                        callback.onLoadFailed(new IOException("Request failed with code: " + response.code()));
-                    } else {
-                        long contentLength = responseBody.contentLength();
-                        stream = ContentLengthInputStream.obtain(responseBody.byteStream(), contentLength);
-                        callback.onDataReady(stream);
-                    }
-                } catch (IOException e) {
-                    callback.onLoadFailed(new RuntimeException(e));
+
+                Response response = client.newCall(request).execute();
+                responseBody = response.body();
+                if (!response.isSuccessful()) {
+                    throw new IOException("Request failed with code: " + response.code());
                 }
 
+                long contentLength = responseBody.contentLength();
+                stream = ContentLengthInputStream.obtain(responseBody.byteStream(), contentLength);
+                return stream;
             }
 
             @Override
@@ -152,7 +138,7 @@ public class UnsafeOkHttpGlideModule extends AppGlideModule {
                     try {
                         stream.close();
                     } catch (IOException e) {
-                        // Ignored
+                        Log.i(TAG, "Fail stream close");
                     }
                 }
                 if (responseBody != null) {
@@ -161,20 +147,13 @@ public class UnsafeOkHttpGlideModule extends AppGlideModule {
             }
 
             @Override
+            public String getId() {
+                return url.getCacheKey();
+            }
+
+            @Override
             public void cancel() {
                 // TODO: call cancel on the client when this method is called on a background thread. See #257
-            }
-
-            @NonNull
-            @Override
-            public Class<InputStream> getDataClass() {
-                return InputStream.class;
-            }
-
-            @NonNull
-            @Override
-            public DataSource getDataSource() {
-                return DataSource.LOCAL;
             }
         }
     }
