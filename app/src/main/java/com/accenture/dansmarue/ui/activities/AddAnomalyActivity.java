@@ -304,15 +304,7 @@ public class AddAnomalyActivity extends BaseAnomalyActivity implements AddAnomal
 
     @OnClick(R.id.add_anomaly_photo)
     public void takePhotoOrViewGallery() {
-        String storagePermission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            storagePermission = Manifest.permission.READ_MEDIA_IMAGES;
-        }
-        if (ContextCompat.checkSelfPermission(this, storagePermission) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{storagePermission}, PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-        } else {
-            selectImage();
-        }
+        selectImage();
     }
 
     @Override
