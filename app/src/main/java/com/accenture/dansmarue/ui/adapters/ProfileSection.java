@@ -28,12 +28,7 @@ public class ProfileSection extends Section {
     private String title;
 
     public ProfileSection(final Context context, final String title) {
-        super(SectionParameters.builder()
-                .headerResourceId(R.layout.section_profile_header)
-                .itemResourceId(R.layout.recycler_view_item)
-                .loadingResourceId(R.layout.section_profile_loading)
-                .failedResourceId(R.layout.section_profile_failed)
-                .build());
+        super(R.layout.section_profile_header, R.layout.recycler_view_item, R.layout.section_profile_loading, R.layout.section_profile_failed);
         this.data = new ArrayList<>();
         this.context = context;
         this.title = title;
