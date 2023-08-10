@@ -583,7 +583,7 @@ public class MapParisFragment extends BaseFragment implements MapParisView, OnMa
                         String currentAdress = "";
                         final List<Address> addresses = geocoder.getFromLocation(location.latitude, location.longitude, 4);
                         if ( addresses != null && !addresses.isEmpty()) {
-                            EditText searchBarText = (EditText) getChildFragmentManager().findFragmentById(R.id.place_autocomplete_fragment).getView().findViewById(R.id.places_autocomplete_search_input);
+                            EditText searchBarText = (EditText) getChildFragmentManager().findFragmentById(R.id.place_autocomplete_fragment).getView().findViewById(com.google.android.libraries.places.R.id.places_autocomplete_search_input);
 
                             final Address addressSelect = MiscTools.selectAddress(addresses, getString(R.string.city_name), searchBarMode,searchBarText.getText().toString());
 

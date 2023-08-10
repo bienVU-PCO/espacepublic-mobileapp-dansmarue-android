@@ -31,6 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        resolveDaggerDependency();
         super.onCreate(savedInstanceState);
         setContentView(getContentView());
         ButterKnife.bind(this);
@@ -60,7 +61,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @CallSuper
     void onViewReady(Bundle savedInstanceState, Intent intent) {
-        resolveDaggerDependency();
         //To be used by child activities
     }
 

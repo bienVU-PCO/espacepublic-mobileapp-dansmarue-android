@@ -1,5 +1,8 @@
 package com.accenture.dansmarue.ui.activities;
 
+import static com.accenture.dansmarue.ui.activities.ChoosePriorityActivity.PRIORITIES_IDS;
+import static com.accenture.dansmarue.ui.activities.ChoosePriorityActivity.PRIORITIES_LIBELLE;
+
 import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -10,20 +13,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
-import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import androidx.annotation.NonNull;
-import com.google.android.material.textfield.TextInputEditText;
-import androidx.core.app.ActivityCompat;
-
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,7 +31,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.accenture.dansmarue.BuildConfig;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.accenture.dansmarue.R;
 import com.accenture.dansmarue.di.components.DaggerPresenterComponent;
 import com.accenture.dansmarue.di.modules.PresenterModule;
@@ -47,15 +46,12 @@ import com.accenture.dansmarue.mvp.models.Incident;
 import com.accenture.dansmarue.mvp.presenters.AddAnomalyPresenter;
 import com.accenture.dansmarue.mvp.views.AddAnomalyView;
 import com.accenture.dansmarue.ui.fragments.MapAnomalyFragment;
-import com.accenture.dansmarue.utils.BitmapScaler;
 import com.accenture.dansmarue.utils.Constants;
 import com.accenture.dansmarue.utils.MiscTools;
 import com.accenture.dansmarue.utils.NetworkUtils;
 import com.bumptech.glide.Glide;
-
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
-
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.RectangularBounds;
@@ -63,13 +59,12 @@ import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
-
 import java.util.Arrays;
-
 import java.util.List;
 import java.util.Locale;
 
@@ -78,12 +73,9 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static com.accenture.dansmarue.ui.activities.ChoosePriorityActivity.PRIORITIES_IDS;
-import static com.accenture.dansmarue.ui.activities.ChoosePriorityActivity.PRIORITIES_LIBELLE;
-
 /**
  * AddAnomalyActivity
- *   Activity to create new incident
+ * Activity to create new incident
  */
 public class AddAnomalyActivity extends BaseAnomalyActivity implements AddAnomalyView {
 
@@ -286,10 +278,8 @@ public class AddAnomalyActivity extends BaseAnomalyActivity implements AddAnomal
     /**
      * Update adress on bottom sheet.
      *
-     * @param adress
-     *          adress
-     * @param location
-     *          Location latitude longitude.
+     * @param adress   adress
+     * @param location Location latitude longitude.
      */
     private void setUpCurrentAdress(String adress, LatLng location) {
         // setup fragment and hide or not bottom sheet
@@ -314,21 +304,17 @@ public class AddAnomalyActivity extends BaseAnomalyActivity implements AddAnomal
 
     @OnClick(R.id.add_anomaly_photo)
     public void takePhotoOrViewGallery() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-        } else {
-            selectImage();
-        }
+        selectImage();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     selectImage();
                 }
-                return;
             }
         }
     }
@@ -363,8 +349,8 @@ public class AddAnomalyActivity extends BaseAnomalyActivity implements AddAnomal
 
     /**
      * Search place address
-     * @param view
-     *         activity view
+     *
+     * @param view activity view
      */
     public void findPlace(View view) {
 
@@ -377,10 +363,10 @@ public class AddAnomalyActivity extends BaseAnomalyActivity implements AddAnomal
             }
         }
 
-        Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, Arrays.asList(Place.Field.ADDRESS,Place.Field.LAT_LNG))
+        Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, Arrays.asList(Place.Field.ADDRESS, Place.Field.LAT_LNG))
                 .setCountry("Fr")
                 .setTypeFilter(TypeFilter.ADDRESS)
-                .setLocationRestriction( RectangularBounds.newInstance(
+                .setLocationRestriction(RectangularBounds.newInstance(
                         new LatLng(48.896794, 2.308851),
                         new LatLng(48.986503, 2.413853)))
                 .build(this);
@@ -401,7 +387,7 @@ public class AddAnomalyActivity extends BaseAnomalyActivity implements AddAnomal
                     boolean containsCity = false;
                     List<String> listCity = Arrays.asList(getString(R.string.city_name).toUpperCase().split(","));
                     for (String city : listCity) {
-                        if(place.getAddress().toString().toUpperCase().contains(city)) {
+                        if (place.getAddress().toString().toUpperCase().contains(city)) {
                             containsCity = true;
                             break;
                         }
@@ -473,9 +459,9 @@ public class AddAnomalyActivity extends BaseAnomalyActivity implements AddAnomal
 
     private void onTypeResult(int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            if(data.hasExtra(Constants.EXTRA_MESSAGE_HORS_DMR)) {
+            if (data.hasExtra(Constants.EXTRA_MESSAGE_HORS_DMR)) {
                 Intent intentAddAnomaly = new Intent(AddAnomalyActivity.this, SimpleMessageActivity.class);
-                intentAddAnomaly.putExtra(Constants.EXTRA_MESSAGE_HORS_DMR,data.getStringExtra(Constants.EXTRA_MESSAGE_HORS_DMR));
+                intentAddAnomaly.putExtra(Constants.EXTRA_MESSAGE_HORS_DMR, data.getStringExtra(Constants.EXTRA_MESSAGE_HORS_DMR));
                 startActivity(intentAddAnomaly);
             } else {
                 typeTreatment(data.getStringExtra(Constants.EXTRA_CATEGORY_NAME), data.getStringExtra(Constants.EXTRA_CATEGORY_ID));
@@ -749,11 +735,8 @@ public class AddAnomalyActivity extends BaseAnomalyActivity implements AddAnomal
     /**
      * Find Postal Adresse with latitude longitude.
      *
-     * @param latlng
-     *         Latitude, Longitude
-     * @param searchBarAddress
-     *         Address enter in search address
-     *
+     * @param latlng           Latitude, Longitude
+     * @param searchBarAddress Address enter in search address
      */
     private void findAdresseWithLatLng(LatLng latlng, String searchBarAddress) {
 
@@ -762,7 +745,7 @@ public class AddAnomalyActivity extends BaseAnomalyActivity implements AddAnomal
         try {
             boolean searchBarMode = searchBarAddress != null && !"".equals(searchBarAddress);
             final List<Address> addresses = geocoder.getFromLocation(latlng.latitude, latlng.longitude, 4); // Here 4 represent max location result to returned, by documents it recommended 1 to 5
-            if ( addresses != null && !addresses.isEmpty()) {
+            if (addresses != null && !addresses.isEmpty()) {
                 final Address addressSelect = MiscTools.selectAddress(addresses, getString(R.string.city_name), searchBarMode, searchBarAddress);
 
                 final String address = addressSelect.getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
@@ -779,16 +762,16 @@ public class AddAnomalyActivity extends BaseAnomalyActivity implements AddAnomal
                 currentAddress = address;
 
                 if (searchBarMode) {
-                    if(searchBarAddress.split(",").length > 3 ) {
+                    if (searchBarAddress.split(",").length > 3) {
                         //fix commercial address
-                        searchBarAddress = searchBarAddress.replace(searchBarAddress.substring(0, searchBarAddress.indexOf(",")+1),"");
+                        searchBarAddress = searchBarAddress.replace(searchBarAddress.substring(0, searchBarAddress.indexOf(",") + 1), "");
                     }
                     currentAddress = currentAddress.replace(currentAddress.substring(0, currentAddress.indexOf(",")), searchBarAddress);
                 }
                 Log.i(TAG, "current " + currentAddress);
 
                 isValidAddressWithNumber = true;
-                if (warningAddress(currentAddress,address)) {
+                if (warningAddress(currentAddress, address)) {
                     Log.i(TAG, "address not started with number");
                     isValidAddressWithNumber = false;
                     presenter.getRequest().getIncident().setValidAddressWithNumber(false);
@@ -804,9 +787,10 @@ public class AddAnomalyActivity extends BaseAnomalyActivity implements AddAnomal
 
     /**
      * Determine if incomplet address pop up must be display.
+     *
      * @return true if display
      */
-    private boolean warningAddress(String addressToCheck,  String referenceAddress) {
+    private boolean warningAddress(String addressToCheck, String referenceAddress) {
         boolean isBridgeAddress = KEYWORD_ADDRESS_BRIDGE.equals(addressToCheck.split(" ")[0].toLowerCase()) || KEYWORD_ADDRESS_BRIDGE.equals(referenceAddress.split(" ")[0].toLowerCase());
         if (!isBridgeAddress) {
             boolean addressHasANumber = !Character.isDigit(addressToCheck.trim().charAt(0)) && Character.isDigit(referenceAddress.trim().charAt(0));
@@ -823,7 +807,7 @@ public class AddAnomalyActivity extends BaseAnomalyActivity implements AddAnomal
         if (NetworkUtils.isConnected(getApplicationContext())) {
             try {
                 Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-                List<Address> addresses =  geocoder.getFromLocationName(addressText, 1);
+                List<Address> addresses = geocoder.getFromLocationName(addressText, 1);
                 return addresses.get(0);
             } catch (IOException e) {
                 FirebaseCrashlytics.getInstance().log(e.getMessage());
@@ -852,8 +836,7 @@ public class AddAnomalyActivity extends BaseAnomalyActivity implements AddAnomal
 
         if (!isValidAddressWithNumber) {
             showDialogError();
-        }
-        else {
+        } else {
             if (!isValidAddress && null != myLastPosition) {
                 if (NetworkUtils.isConnected(getApplicationContext())) {
                     findAdresseWithLatLng(myLastPosition, null);
@@ -935,30 +918,30 @@ public class AddAnomalyActivity extends BaseAnomalyActivity implements AddAnomal
 
         Dialog dialog = new Dialog(this);
 
-        View viewInflated = LayoutInflater.from(this).inflate(R.layout.dialog_incomplete_address,null, false);
+        View viewInflated = LayoutInflater.from(this).inflate(R.layout.dialog_incomplete_address, null, false);
 
         final EditText input = (EditText) viewInflated.findViewById(R.id.input_street_number);
-        final Spinner complementAddress = (Spinner)  viewInflated.findViewById(R.id.spinner_address_complement);
+        final Spinner complementAddress = (Spinner) viewInflated.findViewById(R.id.spinner_address_complement);
 
-        Button buttonPublish = ( Button ) viewInflated.findViewById(R.id.button_publish);
-        buttonPublish.setOnClickListener( new View.OnClickListener() {
+        Button buttonPublish = (Button) viewInflated.findViewById(R.id.button_publish);
+        buttonPublish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (input.getText().toString().length() > 0) {
                     try {
                         if (Integer.parseInt(input.getText().toString()) > 0) {
                             String newAddress = "";
-                            if( complementAddress.getSelectedItem().toString().length() > 0) {
-                                newAddress = input.getText().toString()+complementAddress.getSelectedItem().toString().charAt(0) + " " + presenter.getRequest().getIncident().getAddress();
-                            } else{
+                            if (complementAddress.getSelectedItem().toString().length() > 0) {
+                                newAddress = input.getText().toString() + complementAddress.getSelectedItem().toString().charAt(0) + " " + presenter.getRequest().getIncident().getAddress();
+                            } else {
                                 newAddress = input.getText().toString() + " " + presenter.getRequest().getIncident().getAddress();
                             }
 
                             presenter.getRequest().getIncident().setAddress(newAddress.trim());
 
                             //find new latitude longitude code postal for newAddress
-                            Address address =findLatLngWithAddress(newAddress);
-                            if ( address != null) {
+                            Address address = findLatLngWithAddress(newAddress);
+                            if (address != null) {
                                 presenter.getRequest().getIncident().setLat(String.valueOf(address.getLatitude()));
                                 presenter.getRequest().getIncident().setLng(String.valueOf(address.getLongitude()));
                                 presenter.getRequest().getPosition().setLatitude(address.getLatitude());
@@ -970,7 +953,7 @@ public class AddAnomalyActivity extends BaseAnomalyActivity implements AddAnomal
                             onPublish();
                             dialog.dismiss();
                         }
-                    } catch ( NumberFormatException e ) {
+                    } catch (NumberFormatException e) {
                         input.requestFocus();
                     }
                 } else {
@@ -1246,21 +1229,21 @@ public class AddAnomalyActivity extends BaseAnomalyActivity implements AddAnomal
                         navigateBack();
                     }
                 }).setNegativeButton(R.string.label_no, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                presenter.removeDraft();
-                dialog.cancel();
-                navigateBack();
-            }
-        }).show();
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.removeDraft();
+                        dialog.cancel();
+                        navigateBack();
+                    }
+                }).show();
     }
 
     public void showHideAgentCommentaryField(final boolean agentConnected) {
-       if (agentConnected) {
-           layoutCommentAgent.setVisibility(LinearLayout.VISIBLE);
-       } else {
-           layoutCommentAgent.setVisibility(LinearLayout.GONE);
-       }
+        if (agentConnected) {
+            layoutCommentAgent.setVisibility(LinearLayout.VISIBLE);
+        } else {
+            layoutCommentAgent.setVisibility(LinearLayout.GONE);
+        }
     }
 
     @Override
