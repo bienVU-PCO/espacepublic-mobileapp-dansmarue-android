@@ -760,30 +760,14 @@ public class AnomalyDetailsActivity extends BaseAnomalyActivity implements Anoma
     @OnClick(R.id.add_anomaly_photo)
     public void takePhotoOrViewGallery() {
         isRequalificationPhoto = false;
-        String storagePermission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            storagePermission = Manifest.permission.READ_MEDIA_IMAGES;
-        }
-        if (ContextCompat.checkSelfPermission(this, storagePermission) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{storagePermission}, PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-        } else {
-            selectImage();
-        }
+        selectImage();
     }
 
     @Optional
     @OnClick(R.id.requalification_photo)
     public void takePhotoOrViewGalleryRequalification() {
         isRequalificationPhoto = true;
-        String storagePermission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            storagePermission = Manifest.permission.READ_MEDIA_IMAGES;
-        }
-        if (ContextCompat.checkSelfPermission(this, storagePermission) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{storagePermission}, PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-        } else {
-            selectImage();
-        }
+        selectImage();
     }
 
     @Optional
@@ -933,7 +917,7 @@ public class AnomalyDetailsActivity extends BaseAnomalyActivity implements Anoma
         chooseType.setImageResource(R.drawable.ic_check_circle_pink_24px);
         if(! incident.getAlias().equals(typeSubtitle)) {
             resqualificationBtn.setEnabled(true);
-            resqualificationBtn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.pink));
+            resqualificationBtn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.framboise));
         }
     }
 
