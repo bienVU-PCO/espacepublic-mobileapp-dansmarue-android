@@ -78,11 +78,24 @@ public class PrefActivity extends BaseActivity {
 
                     //  CGU
                     case 2:
-                        startActivity(new Intent(PrefActivity.this, PrefCGUActivity.class));
+                        String urlCGU = "https://plainecommune.fr/conditions-generales-utilisation-applications-et-formulaire";
+                        Intent intentCgu = new Intent(PrefActivity.this, InternalWebViewActivity.class);
+                        intentCgu.putExtra(InternalWebViewActivity.WEBSITE_ADDRESS, urlCGU);
+                        intentCgu.putExtra(InternalWebViewActivity.SCREEN_TITLE, getString(R.string.pref_cgu_activity_title));
+                        startActivity(intentCgu);
+                        break;
+
+                    //  Politique de confidentialité
+                    case 3:
+                        String urlPdc = "https://plainecommune.fr/outils/mentions-legales-et-donnees";
+                        Intent intentPdc = new Intent(PrefActivity.this, InternalWebViewActivity.class);
+                        intentPdc.putExtra(InternalWebViewActivity.WEBSITE_ADDRESS, urlPdc);
+                        intentPdc.putExtra(InternalWebViewActivity.SCREEN_TITLE, getString(R.string.pref_pdc_activity_title));
+                        startActivity(intentPdc);
                         break;
 
                     //  About
-                    case 3:
+                    case 4:
                         startActivity(new Intent(PrefActivity.this, PrefAboutActivity.class));
                         break;
 

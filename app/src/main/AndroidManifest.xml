@@ -244,7 +244,7 @@
         </activity>
 
         <activity
-            android:name=".ui.activities.PrefCGUActivity"
+            android:name=".ui.activities.InternalWebViewActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.activities.PrefActivity"
             android:screenOrientation="portrait"
