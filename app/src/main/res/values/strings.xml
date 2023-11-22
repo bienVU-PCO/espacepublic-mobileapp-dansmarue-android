@@ -130,6 +130,7 @@
         <item>Profil</item>
         <item>Préférences</item>
         <item>Conditions générales d\'utilisation</item>
+        <item>Politique de confidentialité et de vie privée - Plaine Commune</item>
         <item>A propos</item>
     </string-array>
     <string name="button_co">SE CONNECTER</string>
@@ -150,6 +151,9 @@
 
     <!--Menu pref / CGU-->
     <string name="pref_cgu_activity_title">Conditions générales d\'utilisation</string>
+
+    <!--Menu pref / Pdc-->
+    <string name="pref_pdc_activity_title">Politique de confidentialité et de vie privée - Plaine Commune</string>
 
     <string name="cgu_part_one"><![CDATA[<p>Les présentes dispositions ont pour objet de définir les conditions d\'accès et d\'utilisation des applications mobiles bienVU pour iOS, bienVU pour Android et du formulaire web dédié  aux signalements géré par l\'Etablissement Public Territorial Plaine Commune.</p><p>En consultant le formulaire, l\'application mobile et les informations qui y figurent, l\'utilisateur accepte, sans aucune réserve, les conditions mentionnées ci-après.</p>]]></string>
     <string name="cgu_part_two"><![CDATA[<h3>I. Présentation générale</h3><p>Les applications mobiles bienVU pour iOS, bienVU pour Android et le formulaire web (https://bienvu.plainecommune.fr) visent à améliorer la qualité de l\'espace public du territoire en favorisant la synergie entre les usagers de l\'espace public et les services techniques territoriaux et leurs partenaires.</p><p>Les applications mobiles bienVU et le formulaire web sont conçus pour fonctionner sur le territoire de Plaine Commune. Ils utilisent certaines fonctionnalités de votre terminal (GPS et connexion 3G/4G) qui nécessitent une bonne connexion.</p>
