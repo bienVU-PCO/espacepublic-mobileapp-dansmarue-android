@@ -214,9 +214,9 @@ public class MapParisFragment extends BaseFragment implements MapParisView, OnMa
      * Init on long press on map function.
      */
     private void intLongPress() {
-        googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener(){
             @Override
-            public void onMapLongClick(LatLng latLng) {
+            public void onMapClick(LatLng latLng) {
                 searchNumberIncident = null;
                 if (myPrecisionMode == true) activity.onClickPrecisePosition();
                 longPress = true;
