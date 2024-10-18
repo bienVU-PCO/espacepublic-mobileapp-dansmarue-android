@@ -3,9 +3,12 @@ package com.accenture.dansmarue.ui.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,11 +19,12 @@ import com.accenture.dansmarue.mvp.models.Category;
 import com.accenture.dansmarue.mvp.presenters.CategoryPresenter;
 import com.accenture.dansmarue.mvp.views.CategoryView;
 import com.accenture.dansmarue.ui.adapters.CategoryAdapter;
-import com.accenture.dansmarue.utils.CategoryHelper;
-import com.accenture.dansmarue.utils.Constants;
-import com.accenture.dansmarue.utils.PrefManager;
+import com.accenture.dansmarue.ui.adapters.CategorySearchAdapter;
 
-import java.util.ArrayList;
+import com.accenture.dansmarue.utils.Constants;
+
+
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,13 +40,22 @@ public class CategoryActivity extends BaseActivity implements AdapterView.OnItem
 
     @Inject
     protected CategoryPresenter presenter;
+
+    @BindView(R.id.search_bar_category)
+    protected EditText searchBarCategory;
+
     @BindView(R.id.categories)
     protected ListView listView;
 
     @BindView(R.id.text_title_category)
     protected TextView titleCategory;
 
+    @BindView(R.id.listview_category)
+    protected ListView listViewSearchCategory;
+
+
     private CategoryAdapter adapter;
+    private CategorySearchAdapter categorySearchAdapter;
     private String idPreviousParent;
     private Category lastParentItemSelected;
 
@@ -56,7 +69,53 @@ public class CategoryActivity extends BaseActivity implements AdapterView.OnItem
         idPreviousParent = null;
         lastParentItemSelected = null;
 
+        initSearchBarCategory();
+
     }
+
+    private void initSearchBarCategory() {
+
+        categorySearchAdapter = new CategorySearchAdapter(this, presenter.loadCategoriesForSearchBar());
+        listViewSearchCategory.setAdapter(categorySearchAdapter);
+
+        listViewSearchCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                presenter.onCategorySelected(((Category) categorySearchAdapter.getItem(i)).getId());
+            }
+        });
+
+        searchBarCategory.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String newText = searchBarCategory.getText().toString();
+                if (newText.equals("")) {
+                    listViewSearchCategory.setVisibility(View.GONE);
+                    listView.setVisibility(View.VISIBLE);
+                }
+                if (newText != null && newText.trim().length() > 2) {
+                    String text = newText;
+                    listViewSearchCategory.setVisibility(View.VISIBLE);
+                    listView.setVisibility(View.GONE);
+                    categorySearchAdapter.filter(text);
+                } else {
+                    listViewSearchCategory.setVisibility(View.GONE);
+                    listView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
 
     @Override
     public void onBackPressed() {

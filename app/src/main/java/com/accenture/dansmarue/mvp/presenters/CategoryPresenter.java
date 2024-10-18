@@ -61,6 +61,22 @@ public class CategoryPresenter extends BasePresenter<CategoryView> {
         view.categoriesReady();
     }
 
+    public List<Category> loadCategoriesForSearchBar() {
+        if (allCategories.isEmpty()) {
+            allCategories = CategoryHelper.getAllCategories(application);
+        }
+        List<Category> categoryLastLevel = new ArrayList<>();
+        for (Map.Entry<String, Category> entry : allCategories.entrySet()) {
+            if(!CategoryHelper.hasChildren(entry.getKey()) && (!entry.getValue().isAgent() || (entry.getValue().isAgent() && prefManager.getIsAgent()))) {
+                //last level category
+                categoryLastLevel.add(entry.getValue());
+            }
+        }
+
+        return categoryLastLevel;
+    }
+
+
     /**
      * remove Categories Agent for standard user.
      */

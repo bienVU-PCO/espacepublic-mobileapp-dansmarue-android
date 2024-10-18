@@ -25,9 +25,9 @@ apply plugin: 'jacoco'
 
 
 ext.versionMajor = 1
-ext.versionMinor = 2
-ext.versionPatch = 3
-ext.versionCode = 11
+ext.versionMinor = 3
+ext.versionPatch = 0
+ext.versionCode = 12
 ext.minimumSdkVersion = 21
 
 android {

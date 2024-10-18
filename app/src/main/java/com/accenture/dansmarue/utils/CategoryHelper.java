@@ -281,6 +281,22 @@ public final class CategoryHelper {
         }
     }
 
+    public static String getCompleteCategoryHierarchy(Category category) {
+        StringBuilder sbRes = new StringBuilder(category.getName());
+        Category currentCategory = category;
+        int currentCategoryParentId = Integer.parseInt(currentCategory.getParentId());
+        while ( currentCategoryParentId > 0) {
+            currentCategory = ALL_CATEGORIES.get(currentCategory.getParentId());
+            if(currentCategory == null) {
+                return "";
+            }
+            currentCategoryParentId = Integer.parseInt(currentCategory.getParentId());
+            sbRes.insert(0,currentCategory.getName() + ">");
+        }
+        return sbRes.toString();
+    }
+
+
 
 
 }
