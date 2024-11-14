@@ -73,6 +73,9 @@ public class MapParisPresenter extends BasePresenter<MapParisView> implements Si
         GetIncidentsByPositionRequest request = new GetIncidentsByPositionRequest();
         request.setPosition(newLocation);
         request.setGuid(prefManager.getGuid());
+        if(view.getFindByNumberValue() != null && !"".equals(view.getFindByNumberValue().trim())) {
+            request.setSearchByNumber(view.getFindByNumberValue());
+        }
         //Get incidents DMR
         service.getIncidentsByPosition(request)
                 .subscribeOn(Schedulers.io())
