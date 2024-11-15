@@ -66,6 +66,7 @@
     <string name="add_anomaly_no_location">Merci de préciser votre position</string>
     <string name="add_anomaly_offline_mode">Réseau indisponible, veuillez réessayer plus tard</string>
     <string name="btn_text_understand">J\'ai compris</string>
+    <string name="search_type_hint_description">Chercher un type</string>
 
     <!--Greetings -->
     <string name="greetings_thanks">Merci !</string>
@@ -267,6 +268,8 @@
     <string name="retour_arriere">retour arrière</string>
     <string name="favoris">Favoris</string>
     <string name="types_favoris">Types favoris</string>
+    <string name="add_favorite_type">Ajouter le type aux favoris"</string>
+    <string name="remove_favorite_type">Supprimer le type des favoris"</string>
     <string name="about_version_title">Version : </string>
     <string name="city_name">Aubervilliers,Épinay-sur-Seine,Pierrefitte-sur-Seine,Saint-Denis,Villetaneuse,Stains,L\'Île-Saint-Denis,La Courneuve,Saint-Ouen,Saint-Ouen-sur-Seine</string>
     <string name="favorite_address_title">Adresses favorites</string>

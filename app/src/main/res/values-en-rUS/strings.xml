@@ -55,6 +55,7 @@
     <string name="valeur_defaut_detail">(by default)</string>
     <string name="how_to_black_pin">Slide the card to place a marker.</string>
     <string name="save_anomaly_failure">We are having some trouble to recording this anomaly. Thank you for trying later. A draft has been saved in your space.</string>
+    <string name="search_type_hint_description">Search a type</string>
     <string name="greetings_thanks">Thank you !</string>
     <string name="greetings_thanks_line_above">Thank you for your contribution.</string>
     <string name="greetings_keepintouch">STAY IN TOUCH</string>
@@ -100,6 +101,8 @@
     <string name="popup_error_title">Warning</string>
     <string name="popup_msg">A new version of the application is available on the PlayStore. Would you like to install it?</string>
     <string name="popup_no_categories">Due to a network problem, the data needed to create a request could not be retrieved. Thank you to start again later</string>
+    <string name="add_favorite_type">Add type to favorite items</string>
+    <string name="remove_favorite_type">Remove type to favorite items</string>
     <string name="city_name">Aubervilliers,Épinay-sur-Seine,Pierrefitte-sur-Seine,Saint-Denis,Villetaneuse,Stains,L\'Île-Saint-Denis,La Courneuve,Saint-Ouen,Saint-Ouen-sur-Seine</string>
     <string name="add_anomaly_offline_mode">Network unavailable, please try again later</string>
     <string name="add_anomaly_no_location">Please specify your position</string>

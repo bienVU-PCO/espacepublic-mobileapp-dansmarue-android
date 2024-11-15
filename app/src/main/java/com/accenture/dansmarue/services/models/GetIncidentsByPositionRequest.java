@@ -14,6 +14,8 @@ public class GetIncidentsByPositionRequest extends SiraRequest {
 
     private Position position;
 
+    private String searchByNumber;
+
 
     @Override
     protected String getServiceName() {
@@ -35,5 +37,10 @@ public class GetIncidentsByPositionRequest extends SiraRequest {
     public void setPosition(Position position) {
         this.position = position;
     }
+
+    public String getSearchByNumber() {return searchByNumber;}
+
+    public void setSearchByNumber(String searchByNumber) { this.searchByNumber = searchByNumber;}
+
 
 }
