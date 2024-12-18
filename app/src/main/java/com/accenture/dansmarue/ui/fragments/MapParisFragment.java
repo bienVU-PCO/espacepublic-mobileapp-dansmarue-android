@@ -309,6 +309,7 @@ public class MapParisFragment extends BaseFragment implements MapParisView, OnMa
                         updateLocation(latLngPlace);
                         precisePositionModeFunction(true);
                     } else {
+                        searchBarAddress = place.getName();
                         updateLocation(latLngPlace);
                     }
                 }
@@ -585,6 +586,9 @@ public class MapParisFragment extends BaseFragment implements MapParisView, OnMa
                         if ( addresses != null && !addresses.isEmpty()) {
                             EditText searchBarText = (EditText) getChildFragmentManager().findFragmentById(R.id.place_autocomplete_fragment).getView().findViewById(com.google.android.libraries.places.R.id.places_autocomplete_search_input);
 
+                            if (searchBarText.getText() != null && searchBarText.getText().toString().length()== 0) {
+                                searchBarText.setText(searchBarAddress);
+                            }
                             final Address addressSelect = MiscTools.selectAddress(addresses, getString(R.string.city_name), searchBarMode,searchBarText.getText().toString());
 
                             final String address = addressSelect.getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()

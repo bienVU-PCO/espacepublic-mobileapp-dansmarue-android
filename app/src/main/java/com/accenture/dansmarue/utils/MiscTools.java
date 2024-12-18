@@ -13,6 +13,7 @@ import com.accenture.dansmarue.R;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -201,26 +202,37 @@ public class MiscTools {
 
         final String invalidRoadName = "Unnamed Road";
 
+        List<Address> addressesFilter = new ArrayList<>();
+        List<String> cityPlaineCommune = Arrays.asList(cityList.toUpperCase().split(","));
+        for (Address addresse :addresses) {
+            if(cityPlaineCommune.contains(addresse.getLocality().toUpperCase())){
+                addressesFilter.add(addresse);
+            }
+        }
+
         int index = 0;
-        int indexMax = addresses.size() -1;
+        int indexMax = addressesFilter.size() -1;
 
         while ( index < indexMax) {
 
-         boolean validAddress =  addresses.get(index).getThoroughfare() != null &&
-                    ! addresses.get(index).getAddressLine(0).toUpperCase().contains(invalidRoadName.toUpperCase()) &&
-            Arrays.asList(cityList.toUpperCase().split(",")).contains( addresses.get(index).getLocality().toUpperCase());
+         boolean validAddress =  addressesFilter.get(index).getThoroughfare() != null && ! addressesFilter.get(index).getAddressLine(0).toUpperCase().contains(invalidRoadName.toUpperCase()) ;
 
          if(validAddress && searchBarMode && searchBarAddress != null) {
-             validAddress = searchBarAddress.toUpperCase().contains( addresses.get(index).getThoroughfare().toUpperCase());
+             validAddress = searchBarAddress.toUpperCase().contains( addressesFilter.get(index).getThoroughfare().toUpperCase());
+             if (! validAddress) {
+                 String[] tabThoroughfare = addressesFilter.get(index).getThoroughfare().toUpperCase().split(" ", 2);
+                 validAddress = searchBarAddress.toUpperCase().contains( tabThoroughfare[tabThoroughfare.length-1].toUpperCase());
+             }
+
          }
 
          if (validAddress) {
-             return addresses.get(index);
+             return addressesFilter.get(index);
          }
 
          index ++;
 
         }
-        return addresses.get(indexMax);
+        return addressesFilter.get(indexMax);
     }
 }
