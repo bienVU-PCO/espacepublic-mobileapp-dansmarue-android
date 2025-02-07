@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -20,8 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -72,6 +76,12 @@ public class WelcomeMapActivity extends BaseActivity implements WelcomeMapView, 
     protected WelcomeMapPresenter presenter;
 
     private MapParisFragment mapParisFragment;
+
+    @BindView(R.id.showAnomalyLinearLayout)
+    protected LinearLayout showAnomalyLinearLayout;
+
+    @BindView(R.id.avoid_duplicate)
+    protected Button avoidDuplicateButton;
 
     @BindView(R.id.wbsa_fab)
     protected FloatingActionButton addAnomalyFloatingButton;
@@ -208,6 +218,9 @@ public class WelcomeMapActivity extends BaseActivity implements WelcomeMapView, 
                         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.frameLayout, mapParisFragment);
                         fragmentTransaction.commitAllowingStateLoss();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                            showAnomalyLinearLayout.setAccessibilityTraversalBefore(R.id.bottom_menu_map);
+                        }
                         break;
                     case R.id.bottom_menu_profile:
                             presenter.profileClicked();
@@ -253,6 +266,22 @@ public class WelcomeMapActivity extends BaseActivity implements WelcomeMapView, 
         greetingsAnomalyFloatingButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.greetings_green)));
 
         behavior.setPeekHeight((int) ((198) * Resources.getSystem().getDisplayMetrics().density));
+
+        avoidDuplicateButton.setOnClickListener(view -> {
+            expandListOfActions();
+            slideToTop();
+            behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            behavior.setPeekHeight(Math.round((198) * Resources.getSystem().getDisplayMetrics().density));
+            bottomSheet.scrollTo(0, 0);
+        });
+
+        showAnomalyLinearLayout.setOnClickListener(view -> {
+            expandListOfActions();
+            slideToTop();
+            behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            behavior.setPeekHeight(Math.round((198) * Resources.getSystem().getDisplayMetrics().density));
+            bottomSheet.scrollTo(0, 0);
+        });
 
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -332,10 +361,40 @@ public class WelcomeMapActivity extends BaseActivity implements WelcomeMapView, 
         layoutSelectedAdress.setVisibility(View.VISIBLE);
         layoutSelectedIncident.setVisibility(View.GONE);
 
+        showAnomalyLinearLayout.setVisibility(View.GONE);
         addAnomalyFloatingButton.setVisibility(View.GONE);
         //followAnomalyFloatingButton.setVisibility(View.GONE);
         greetingsAnomalyFloatingButton.setVisibility(View.GONE);
 
+    }
+
+    private void slideToTop() {
+        Animation slide = null;
+        slide = new TranslateAnimation(0f, 0f, 5f, 0f);
+        slide.setDuration(500);
+        bottomSheet.startAnimation(slide);
+
+        slide.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                // bottomSheet.clearAnimation();
+                bottomSheet.setContentDescription(getString(R.string.text_around_incident));
+                bottomSheet.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    bottomSheet.setAccessibilityHeading(true);
+                }
+            }
+
+        });
     }
 
     /**
@@ -349,6 +408,7 @@ public class WelcomeMapActivity extends BaseActivity implements WelcomeMapView, 
             showFAB = true;
         }
 
+        showAnomalyLinearLayout.setVisibility(View.VISIBLE);
         layoutPrecisePosition.setVisibility(View.VISIBLE);
         layoutAddAnomaly.setVisibility(View.GONE);
         //followAnomalyFloatingButton.setVisibility(View.GONE);

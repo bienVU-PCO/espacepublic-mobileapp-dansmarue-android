@@ -213,7 +213,7 @@ public class MiscTools {
         int index = 0;
         int indexMax = addressesFilter.size() -1;
 
-        while ( index < indexMax) {
+        while ( index <= indexMax) {
 
          boolean validAddress =  addressesFilter.get(index).getThoroughfare() != null && ! addressesFilter.get(index).getAddressLine(0).toUpperCase().contains(invalidRoadName.toUpperCase()) ;
 
@@ -233,6 +233,10 @@ public class MiscTools {
          index ++;
 
         }
-        return addressesFilter.get(indexMax);
+        if(addressesFilter.size() > 0) {
+            return addressesFilter.get(indexMax);
+        } else {
+            return addresses.get(0);
+        }
     }
 }

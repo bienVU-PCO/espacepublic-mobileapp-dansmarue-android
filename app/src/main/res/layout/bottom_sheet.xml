@@ -193,17 +193,63 @@
 
         </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/wbsa_fab"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="8dp"
-            android:clickable="true"
-            android:visibility="gone"
-            app:srcCompat="@drawable/ic_add_anomaly_fab" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/showAnomalyLinearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/wbsa_fab">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron" />
+
+                <Button
+                    android:id="@+id/avoid_duplicate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="top|center"
+                    android:layout_marginTop="3dp"
+                    android:accessibilityTraversalBefore="@id/bottom_sheet_my_adress"
+                    android:background="@drawable/my_custom_button"
+                    android:clickable="true"
+                    android:contentDescription="@string/show_anomaly_declared"
+                    android:focusable="true"
+                    android:paddingHorizontal="12dp"
+                    android:text="@string/show_anomaly_declared_button"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/wbsa_fab"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:accessibilityTraversalBefore="@id/avoid_duplicate"
+                android:clickable="true"
+                android:contentDescription="@string/desc_add_incident"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_add_anomaly_fab"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:focusable="true" />
 
         <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/follow_fab"
@@ -217,19 +263,22 @@
             android:visibility="gone"
             app:srcCompat="@drawable/ic_follow" />-->
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/greetings_fab"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="8dp"
-            android:clickable="true"
-            android:visibility="gone"
-            app:srcCompat="@drawable/ic_greetings_white" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/greetings_fab"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:clickable="true"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_greetings_white"
+                android:focusable="true" />
 
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 
 </androidx.core.widget.NestedScrollView>

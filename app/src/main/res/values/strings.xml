@@ -236,6 +236,8 @@
     <string name="unfollow_anomaly">Vous ne suivez plus cette anomalie.</string>
     <string name="follow_anomaly_failure">Vous ne pouvez pas suivre cette anomalie.</string>
     <string name="unfollow_anomaly_failure">Vous suivez toujours cette anomalie.</string>
+    <string name="show_anomaly_declared">Voir les anomalies déjà signalées.</string>
+    <string name="show_anomaly_declared_button">Voir les anomalies déjà signalées</string>
 
     <!--Greetings-->
     <string name="greetings_ok">Merci d\'avoir transmis vos félicitations aux agents !</string>

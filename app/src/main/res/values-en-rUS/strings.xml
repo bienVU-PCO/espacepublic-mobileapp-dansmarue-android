@@ -145,6 +145,8 @@
     <string name="failed_authentication">Failed authentification.</string>
     <string name="ask_optins_permission_message">Do you allow the application to transmit your location data and your phone identifier ?</string>
     <string name="desc_ramen">Request for removal of bulky items</string>
+    <string name="show_anomaly_declared">Show anomalies already reported.</string>
+    <string name="show_anomaly_declared_button">Show anomalies already reported</string>
     <string name="greetings_ok">Thank you for sending your congratulations to the agents!</string>
     <string name="nbAnomaliesEquipement">incident(s) open</string>
     <string name="not_in_paris">invalid address</string>
